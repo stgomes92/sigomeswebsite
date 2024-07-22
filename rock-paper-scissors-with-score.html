@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            font-family: Arial;
+        }
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .move-icon {
+            height: 50px;
+        }
+        .move-button {
+            background-color: black;
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        #Reset{
+            background-color: white;
+            width: 130px;
+            height: 50px;
+            border-radius: 50px ;
+            font-size: 20px;
+        }
+    </style>
+    <head>
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body>
+        <p class="title">Rock Paper Scissors</p>
+
+        <button onclick="pickComputerMove()" class="move-button"><img src="rock-emoji.png" class="move-icon"></button>
+
+        <button onclick="pickComputerMove2()" class="move-button"><img src="paper-emoji.png" class="move-icon"></button>
+
+        <button onclick="pickComputerMove3()" class="move-button"><img src="scissors-emoji.png" class="move-icon"></button>
+
+        <p>
+        <button id="Reset" onclick="reset()">Reset Score</button>
+        </p>
+
+        
+
+        <p>Wins: <span id="wins">0</span></p>
+        <p>Losses: <span id="losses">0</span></p>
+        <p>Ties: <span id="ties">0</span></p>
+
+        <script>
+            const score = JSON.parse(localStorage.getItem('score')) || { wins: 0, losses: 0, ties: 0 };
+            
+            let computerMove = '';
+            let result = '';
+
+            function pickComputerMove() {
+                const randomNumber = Math.random();
+                
+                if (randomNumber >= 0 && randomNumber < 1/3) {
+                    computerMove = 'Rock';
+                } else if (randomNumber >= 1/3 && randomNumber < 2/3) {
+                    computerMove = 'Paper';
+                } else if (randomNumber >= 2/3 && randomNumber < 1) {
+                    computerMove = 'Scissors';
+                }
+
+                console.log(computerMove);
+
+                if (computerMove === 'Rock') {
+                    result = 'tie';
+                    alert('Computer picked Rock. It\'s a ' + result)
+                } else if (computerMove === 'Paper') {
+                    result = 'lose';
+                    alert('Computer picked Paper. You ' + result)
+                } else if (computerMove === 'Scissors') {
+                    result = 'win';
+                    alert ('Computer picked Scissors. You ' + result)
+                }
+
+                if (result === 'win') {
+                    score.wins += 1
+                } else if (result === 'tie') {
+                    score.ties += 1
+                } else if (result === 'lose') {
+                    score.losses += 1
+                }
+
+                console.log(score);
+                updateScoreDisplay();
+            }
+
+            function pickComputerMove2() {
+                const randomNumber2 = Math.random();
+                let computerMove2 = '';
+
+                if (randomNumber2 >= 0 && randomNumber2 < 1/3) {
+                    computerMove2 = 'Rock';
+                } else if (randomNumber2 >= 1/3 && randomNumber2 < 2/3) {
+                    computerMove2 = 'Paper';
+                } else if (randomNumber2 >= 2/3 && randomNumber2 < 1) {
+                    computerMove2 = 'Scissors';
+                }
+
+                if (computerMove2 === 'Rock') {
+                    result = 'win';
+                    alert('Computer picked Rock. You ' + result)
+                } else if (computerMove2 === 'Paper') {
+                    result = 'tie';
+                    alert('Computer picked Paper. It\'s a ' + result)
+                } else if (computerMove2 === 'Scissors') {
+                    result = 'lose';
+                    alert('Computer picked Scissors. You ' + result)
+                }
+
+                if (result === 'win') {
+                    score.wins += 1
+                } else if (result === 'tie') {
+                    score.ties += 1
+                } else if (result === 'lose') {
+                    score.losses += 1
+                }
+
+                console.log(score);
+                updateScoreDisplay();
+                localStorage.setItem('score' , JSON.stringify(score));
+            }
+
+            function pickComputerMove3() {
+                const randomNumber3 = Math.random();
+                let computerMove3 = '';
+
+                if (randomNumber3 >= 0 && randomNumber3 < 1/3) {
+                    computerMove3 = 'Rock';
+                } else if (randomNumber3 >= 1/3 && randomNumber3 < 2/3) {
+                    computerMove3 = 'Paper';
+                } else if (randomNumber3 >= 2/3 && randomNumber3 < 1) {
+                    computerMove3 = 'Scissors';
+                }
+
+                if (computerMove3 === 'Rock') {
+                    result = 'lose';
+                    alert('Computer picked Rock. You ' + result)
+                } else if (computerMove3 === 'Paper') {
+                    result = 'win';
+                    alert('Computer picked Paper. You ' + result)
+                } else if (computerMove3 === 'Scissors') {
+                    result = 'tie';
+                    alert('Computer picked Scissors. It\'s a ' + result)
+                }
+
+                if (result === 'win') {
+                    score.wins += 1
+                } else if (result === 'tie') {
+                    score.ties += 1
+                } else if (result === 'lose') {
+                    score.losses += 1
+                }
+
+                console.log(score);
+                updateScoreDisplay();
+            }
+
+            function reset() {
+                score.wins = 0;
+                score.losses = 0;
+                score.ties = 0;
+
+                console.log(score);
+                updateScoreDisplay();
+                alert('Score has been reset!');
+            }
+
+            function updateScoreDisplay() {
+                document.getElementById('wins').textContent = score.wins;
+                document.getElementById('losses').textContent = score.losses;
+                document.getElementById('ties').textContent = score.ties;
+            }
+
+        </script>
+    </body>
+</html>
